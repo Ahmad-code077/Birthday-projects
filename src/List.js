@@ -1,16 +1,28 @@
 import React from 'react';
 
-const List = ({ people }) => {
+const List = ({ people, setPeople }) => {
+  const handleRemove = (id) => {
+    let filterItem = people.filter((item) => {
+      return item.id !== id;
+    });
+    setPeople(filterItem);
+  };
   return (
     <>
-      {people.map((person) => {
-        const { id, name, age, image } = person;
+      {people.map((item) => {
+        const { name, id, image, age } = item;
         return (
-          <article key={id} className='person'>
+          <article className='person' key={id}>
             <img src={image} alt={name} />
             <div>
-              <h4>{name}</h4>
+              <h2>{name}</h2>
               <p>{age} years</p>
+              <button
+                style={{ width: '100px', margin: 0 }}
+                onClick={() => handleRemove(id)}
+              >
+                remove
+              </button>
             </div>
           </article>
         );
